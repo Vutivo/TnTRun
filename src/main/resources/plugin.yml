@@ -1,0 +1,3 @@
+name: TntRun
+version: '${project.version}'
+main: fr.vutivo.tntrun.TntRun
