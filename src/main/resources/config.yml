@@ -8,11 +8,13 @@ Gametag: "&7[&4TNT &6Run&7] "
 Spawn:
   worldName: "world"
   spawn: -160, 75, 59
-  #Timerstart: 10
 
+
+#les message du plugin se trouve ici
 Message:
   JoinMessage: "&bBienvenue %player% sur le serveur TNT Run !"
   QuitMessage: "&c%player% vient de quitter le serveur TNT Run !"
   JoinMessageAfterStart: "&cLa partie à déjà commencé"
   AnnonceTimerGame: "&aLa partie va commencer dans &e%timer% &aseconde(s)"
   AnnonceGameStart: "&bQue le jeu commence !"
+  MessagedeMort: "&cLe Joueur &b%player% &cvient de mourrir"

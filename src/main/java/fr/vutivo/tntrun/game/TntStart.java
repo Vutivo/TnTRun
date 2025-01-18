@@ -36,11 +36,8 @@ public class TntStart extends BukkitRunnable {
             Start();
             cancel();
 
-
         }
         Timer --;
-
-
 
     }
 
@@ -48,9 +45,13 @@ public class TntStart extends BukkitRunnable {
         main.setState(State.GAME);
         for(Player p : Bukkit.getOnlinePlayers()){
             main.PlayerIG.add(p);
-            game.runTaskTimer(main,0,20);
-
 
         }
+        game.runTaskTimer(main,0,20);
+    }
+    public void Stop(){
+        main.setState(State.WAITTING);
+        Bukkit.broadcastMessage("MessageStopTimer");
+        cancel();
     }
 }

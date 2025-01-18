@@ -1,11 +1,9 @@
 package fr.vutivo.tntrun;
 
+import fr.vutivo.tntrun.commands.CommandsManager;
 import fr.vutivo.tntrun.events.EventManager;
 import fr.vutivo.tntrun.game.State;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -16,19 +14,20 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.bukkit.Bukkit.getLogger;
+
 public final class TntRun extends JavaPlugin {
 
     //Liste des joueurs qui sont en jeu
     public ArrayList <Player> PlayerIG = new ArrayList<>();
 
-    //Liste des joueur qui sont en spec dans la game
-    ArrayList <Player> PlayerSpec = new ArrayList<>();
     //Liste des Orga de la partie
-    ArrayList <Player> PlayerOrga = new ArrayList<>();
+    public ArrayList <Player> PlayerHost = new ArrayList<>();
 
     public  Map<String, String> placeholders = new HashMap<>();
 
-
+    public Location Spawn;
+    public World world;
 
     public int Timer;
     public State state;
@@ -42,24 +41,42 @@ public final class TntRun extends JavaPlugin {
     public String AnnonceTimerGame;
     public String AnnonceGameStart;
 
+   // public Location corner1 = new Location(null, -148 , 77, 72);
+    // public Location corner2 = new Location(null, -172  , 57, 44);
 
-    //public int Timerstart;
-    public Location Spawn;
-    public World world;
+
+
 
 
     @Override
     public void onEnable() {
-
         EventManager.RegisterEvent(this);
+        CommandsManager.RegisterCommands(this);
         saveDefaultConfig();
         loadConfig();
+
+
+        world.setDifficulty(Difficulty.PEACEFUL);
+
+
         setState(State.WAITTING);
+        Location corner1 = new Location(world, -148 , 77, 72);
+        Location corner2 = new Location(world, -173  , 57, 44);
+        getLogger().warning("Corner1 World: " + corner1.getWorld().getName() + ", Corner2 World: " + corner2.getWorld().getName());
+        getLogger().warning("Corner1 Location: " + corner1.toString() + ", Corner2 Location: " + corner2.toString());
+
+        WorldManager.SaveArena(corner1,corner2);
 
     }
 
     @Override
     public void onDisable() {
+
+        Location corner1 = new Location(world, -148 , 77, 72);
+        Location corner2 = new Location(world, -173  , 57, 44);
+
+        WorldManager.pregenArena(corner1,corner2,WorldManager.savedArena);
+
 
     }
 
@@ -69,7 +86,7 @@ public final class TntRun extends JavaPlugin {
 
         world = Bukkit.getWorld(getConfig().getString("Spawn.worldName"));
         Spawn = getLocation(getConfig().getString("Spawn.spawn"));
-        //Timerstart = getConfig().getInt("Spawn.Timerstart");
+
 
         // Message
         JoinMessage = getConfig().getString("Message.JoinMessage");

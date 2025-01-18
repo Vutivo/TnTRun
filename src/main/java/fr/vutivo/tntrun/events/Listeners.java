@@ -2,11 +2,16 @@ package fr.vutivo.tntrun.events;
 
 import fr.vutivo.tntrun.TntRun;
 import fr.vutivo.tntrun.game.State;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -18,6 +23,7 @@ public class Listeners implements Listener {
     public Listeners(TntRun main) {
         this.main = main;
     }
+
     @EventHandler
     public void OnFood(FoodLevelChangeEvent e){
         e.setCancelled(true);
@@ -25,13 +31,37 @@ public class Listeners implements Listener {
     @EventHandler
     public void onWeatherChange(WeatherChangeEvent e){
         e.setCancelled(true);
+    }
+    @EventHandler
+    public void onBreak(BlockBreakEvent e){
+        Player p = e.getPlayer();
+        if(!(p.getGameMode().equals(GameMode.CREATIVE))){
+            e.setCancelled(true);
+        }
+    }
 
+    @EventHandler
+    public void BlocPlace(BlockPlaceEvent e){
+        Player p = e.getPlayer();
+        if(p.isOp()){
+            e.setCancelled(true);
+        }
+        if(e.getBlockPlaced().getType() == Material.CHEST){
+
+        }
+    }
+    @EventHandler
+    public void onDamage(EntityDamageEvent e){
+        e.setCancelled(true);
     }
 
     @EventHandler
     public void onRun(PlayerMoveEvent e){
         if(!main.isState(State.GAME)) return;
         Player p = e.getPlayer();
+        main.placeholders.put("player", p.getName()); // %player%
+
+        if(!(main.PlayerIG.contains(p))) return;
 
         // Récupère la position des pieds du joueur
         Block blockUnder = p.getLocation().getBlock().getRelative(0, -1, 0);
@@ -40,7 +70,8 @@ public class Listeners implements Listener {
         Material blockType = blockUnder.getType();
 
         if(blockType.equals(Material.GLASS) && main.PlayerIG.contains(p)){
-            p.sendMessage("Messagedemort");
+            Bukkit.broadcastMessage( main.formatMessage(main.getConfig().getString("Message.MessagedeMort"), main.placeholders,true));
+            p.setGameMode(GameMode.SPECTATOR);
             main.PlayerIG.remove(p);
         }
 

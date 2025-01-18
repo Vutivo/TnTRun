@@ -41,8 +41,11 @@ public class OnJoin implements Listener {
             p.setLevel(0);
             p.setFoodLevel(20);
             p.setHealth(20);
-            p.setGameMode(GameMode.ADVENTURE);
-            p.getInventory().setItem(4,main.BuildItems(Material.NETHER_STAR,0,1,"§bConfiguration"));
+            p.setGameMode(GameMode.SURVIVAL);
+            if(main.PlayerHost.contains(p) || p.isOp()){
+                p.getInventory().setItem(4,main.BuildItems(Material.NETHER_STAR,0,1,"§bConfiguration"));
+            }
+
             p.getInventory().setItem(8,main.BuildItems(Material.CHEST,0,1,"§6Kit"));
         }else {
             p.sendMessage(main.formatMessage(main.getConfig().getString("Message.JoinMessageAfterStart"),main.placeholders,true));

@@ -37,7 +37,7 @@ public class Gui implements Listener {
         if(main.isState(State.WAITTING)|| main.isState(State.STARTING)){
 
             if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
-                //Si l'item dans la main est similaire à celui la
+
                 if (it.isSimilar(BuildItems(Material.NETHER_STAR,0,1,"§bConfiguration"))) {
                     Configuration(p);
                 }
@@ -59,12 +59,11 @@ public class Gui implements Listener {
 
 
 
-        if (clickedItem == null || !clickedItem.hasItemMeta() || clickedItem.getItemMeta().getDisplayName() == null){
-            e.setCancelled(true);
+        if (clickedItem == null || clickedItem.getType() == Material.AIR || meta == null || meta.getDisplayName() == null) {
             return;
         }
 
-        if (e.getView().getTitle().equals("§bConfiguration")||
+        if (e.getView().getTitle().equals("§bConfig")||
             e.getView().getTitle().equals("§6Kit")){
 
             e.setCancelled(true);
@@ -77,22 +76,31 @@ public class Gui implements Listener {
                      start.runTaskTimer(main,0,20);
                      p.closeInventory();
                      break;
+                 case "§cStop":
+                     start.Stop();
+                     p.closeInventory();
+                     break;
+
 
              }
         }
     }
 
     public void Configuration(Player p){
-        Inventory inv = Bukkit.createInventory(null, 27, "§bConfiguration");
+        Inventory inv = Bukkit.createInventory(null, 27, "§bConfig");
 
-        ItemStack glass = BuildItems(Material.STAINED_GLASS_PANE,3,1,null);
+        ItemStack glass = BuildItems(Material.STAINED_GLASS_PANE,3,1," ");
         ItemStack Start = BuildItems(Material.WOOL,13,1,"§aStart");
+        ItemStack Stop = BuildItems(Material.WOOL,14,1,"§cStop");
 
         int[] glassSlots = {0, 1, 7, 8, 9, 17, 18, 19, 25, 26};
         for (int slotg : glassSlots) {
             inv.setItem(slotg, glass);
         }
-        inv.setItem(4,Start);
+        if(main.isState(State.WAITTING)){
+            inv.setItem(4,Start);
+        }else if(main.isState(State.STARTING))
+            inv.setItem(4,Stop);
         p.openInventory(inv);
 
 

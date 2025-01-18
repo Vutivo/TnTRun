@@ -4,6 +4,7 @@ import fr.mrmicky.fastboard.FastBoard;
 
 import fr.vutivo.tntrun.TntRun;
 import fr.vutivo.tntrun.game.State;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -13,12 +14,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-
+import static fr.vutivo.tntrun.game.TntGame.Chrono;
 
 
 public class ScoreboardManager implements Listener {
     private final Map<UUID, FastBoard> boards = new HashMap<>() ;
   private final TntRun main;
+
 
 
 
@@ -45,7 +47,7 @@ public class ScoreboardManager implements Listener {
                     }
                 }
             }
-        }.runTaskTimer(main, 0L, 10L);
+        }.runTaskTimer(main, 0L, 20L);
 
     }
 
@@ -74,7 +76,11 @@ public class ScoreboardManager implements Listener {
         try {
 
 
-            updateBoard(board,""
+            updateBoard(board,
+                    "",
+                        "§aJoueur en vie :§b "+ main.PlayerIG.size(),
+                        "",
+                        "§eTimer :§b "+ Chrono(main.Timer)
 
                     );
 

@@ -1,3 +1,8 @@
 name: TntRun
 version: '${project.version}'
 main: fr.vutivo.tntrun.TntRun
+commands:
+  host:
+    aliases: [h]
+    description: Permet de configurer encore plus le mode de jeu
+
