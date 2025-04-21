@@ -1,0 +1,20 @@
+# Bienvenue dans un plugin Tnt run développé par Vutivo.
+# Ce plugin est bien evidement un exercice pour avoir plus de compétance dans le domaine de la programation.
+#%player% -> nom du joueur
+#%timer% timer avant le start
+
+Gametag: "&7[&4TNT &6Run&7] "
+
+Spawn:
+  worldName: "world"
+  spawn: -160, 75, 59
+
+
+#les message du plugin se trouve ici
+Message:
+  JoinMessage: "&bBienvenue %player% sur le serveur TNT Run !"
+  QuitMessage: "&c%player% vient de quitter le serveur TNT Run !"
+  JoinMessageAfterStart: "&cLa partie à déjà commencé"
+  AnnonceTimerGame: "&aLa partie va commencer dans &e%timer% &aseconde(s)"
+  AnnonceGameStart: "&bQue le jeu commence !"
+  MessagedeMort: "&cLe Joueur &b%player% &cvient de mourrir"

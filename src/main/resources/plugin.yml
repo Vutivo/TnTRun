@@ -1,0 +1,8 @@
+name: TntRun
+version: 1
+main: fr.vutivo.tntrun.TntRun
+commands:
+  host:
+    aliases: [h]
+    description: Permet de configurer encore plus le mode de jeu
+
