@@ -126,25 +126,5 @@ public final class TntRun extends JavaPlugin {
         return this.state == state;
     }
 
-    public  static ItemStack BuildItems(Material material, int color, int amount, String name){
-        ItemStack item = new ItemStack(material , amount, (short) color); // si pas de couleur le mettre à 0
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(name);
 
-        item.setItemMeta(meta);
-        return item;
-
-    }
-
-
-    public  static ItemStack BuildItems(Material material,int color,int amount, String name,String lore){
-        ItemStack item = new ItemStack(material , amount, (short) color); // si pas de couleur le mettre à 0
-        ItemMeta meta = item.getItemMeta();
-        meta.setLore(Collections.singletonList(lore));
-        meta.setDisplayName(name);
-
-        item.setItemMeta(meta);
-        return item;
-
-    }
 }

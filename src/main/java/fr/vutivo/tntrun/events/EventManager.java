@@ -13,8 +13,6 @@ public class EventManager {
         pm.registerEvents(new OnJoin(main),main);
         pm.registerEvents(new Listeners(main),main);
 
-        pm.registerEvents(new Gui(main),main);
-
         pm.registerEvents(new ScoreboardManager(main),main);
     }
 }

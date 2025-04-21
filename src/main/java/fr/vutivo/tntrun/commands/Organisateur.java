@@ -10,6 +10,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import static fr.vutivo.tntrun.gui.Gui.BuildItems;
+
 public class Organisateur implements CommandExecutor {
     private TntRun main;
 
@@ -48,7 +50,7 @@ public class Organisateur implements CommandExecutor {
             }
 
             main.PlayerHost.add(target);
-            p.getInventory().setItem(4,main.BuildItems(Material.NETHER_STAR,0,1,"§bConfiguration"));
+            p.getInventory().setItem(4,BuildItems(Material.NETHER_STAR,0,1,"§bConfiguration"));
             return false;
 
 

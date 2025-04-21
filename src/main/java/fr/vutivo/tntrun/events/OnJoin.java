@@ -15,6 +15,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+import static fr.vutivo.tntrun.gui.Gui.BuildItems;
+
 public class OnJoin implements Listener {
     private TntRun main;
     private ScoreboardManager board;
@@ -43,10 +45,10 @@ public class OnJoin implements Listener {
             p.setHealth(20);
             p.setGameMode(GameMode.SURVIVAL);
             if(main.PlayerHost.contains(p) || p.isOp()){
-                p.getInventory().setItem(4,main.BuildItems(Material.NETHER_STAR,0,1,"§bConfiguration"));
+                p.getInventory().setItem(4,BuildItems(Material.NETHER_STAR,0,1,"§bConfiguration"));
             }
 
-            p.getInventory().setItem(8,main.BuildItems(Material.CHEST,0,1,"§6Kit"));
+            p.getInventory().setItem(8,BuildItems(Material.CHEST,0,1,"§6Kit"));
         }else {
             p.sendMessage(main.formatMessage(main.getConfig().getString("Message.JoinMessageAfterStart"),main.placeholders,true));
             p.setGameMode(GameMode.SPECTATOR);
